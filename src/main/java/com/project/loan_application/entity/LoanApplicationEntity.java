@@ -42,16 +42,16 @@ public class LoanApplicationEntity {
 
     @Column(name = "address")
     private String address;
+    
+    @Column(name = "annual_salary")
+    private Long annualSalary;
 
     @ElementCollection
     @CollectionTable(name = "employment_details", joinColumns = @JoinColumn(name = "loan_id"))
     @Column(name = "employment_detail")
     private List<String> employmentDetails;
 
-    @ElementCollection
-    @CollectionTable(name = "financial_info", joinColumns = @JoinColumn(name = "loan_id"))
-    @Column(name = "financial_detail")
-    private List<String> financialInfo;
+  
 
     @ElementCollection
     @CollectionTable(name = "assets", joinColumns = @JoinColumn(name = "loan_id"))
@@ -59,16 +59,13 @@ public class LoanApplicationEntity {
     private List<String> assets;
 
     @ElementCollection
-    @CollectionTable(name = "references", joinColumns = @JoinColumn(name = "loan_id"))
+    @CollectionTable(name = "references_list", joinColumns = @JoinColumn(name = "loan_id"))
     @Column(name = "reference")
     private List<String> references;
 
     @Column(name = "loan_amount")
     private Double loanAmount;
 
-//    @ManyToOne
-//    @JoinColumn(name = "customer_id")
-//    private Customer customer;
 
     public Long getLoanId() {
         return loanId;
@@ -142,12 +139,12 @@ public class LoanApplicationEntity {
         this.employmentDetails = employmentDetails;
     }
 
-    public List<String> getFinancialInfo() {
-        return financialInfo;
+    public Long getAnnualSalary() {
+        return annualSalary;
     }
 
-    public void setFinancialInfo(List<String> financialInfo) {
-        this.financialInfo = financialInfo;
+    public void setAnnualSalary(Long annualSalary) {
+        this.annualSalary = annualSalary;
     }
 
     public List<String> getAssets() {
@@ -174,11 +171,4 @@ public class LoanApplicationEntity {
         this.loanAmount = loanAmount;
     }
 
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
 }
