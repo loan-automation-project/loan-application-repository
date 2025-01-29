@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.project.loan_application.entity.LoanApplicationEntity;
 
-@Repository
-public interface LoanApplicationRepository extends JpaRepository<LoanApplicationEntity , Long>{
-	
+import java.util.List;
 
+@Repository
+public interface LoanApplicationRepository extends JpaRepository<LoanApplicationEntity, Long> {
+    List<LoanApplicationEntity> findByCustomerId(Long customerId);
+    List<LoanApplicationEntity> findByUserId(Long userId);
 }

@@ -15,19 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.loan_application.entity.LoanApplicationEntity;
 import com.project.loan_application.service.LoanApplicationService;
+import com.project.loan_application.client.CustomerClient;
 
 @RestController
-@RequestMapping("/application")
+@RequestMapping("/loanApplication")
 public class LoanApplicationController {
 
 	@Autowired
-	LoanApplicationService loanApplicationService;
+	private LoanApplicationService loanApplicationService;
 	
-	@PostMapping("")
-	public ResponseEntity<LoanApplicationEntity> addALoanApplication(@RequestBody LoanApplicationEntity application){
-		
-		return new ResponseEntity<LoanApplicationEntity>(loanApplicationService.addLoanApplication(application) , HttpStatus.OK);
-		
+	@Autowired
+	private CustomerClient customerClient;
+	
+	@PostMapping("/user/{userId}")
+	public ResponseEntity<LoanApplicationEntity> addLoanApplication(
+			@PathVariable Long userId,
+			@RequestBody LoanApplicationEntity application) {
+		return new ResponseEntity<>(loanApplicationService.addLoanApplication(application, userId), HttpStatus.OK);
 	}
 	
 	@GetMapping("")
@@ -44,6 +48,18 @@ public class LoanApplicationController {
 	public ResponseEntity<Void> deleteALoanApplication(@PathVariable Long id){
 		loanApplicationService.deleteAApplication(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/customer/{customerId}")
+	public ResponseEntity<List<LoanApplicationEntity>> getLoansByCustomerId(@PathVariable Long customerId) {
+		try {
+			// Verify customer exists
+			customerClient.getCustomerById(customerId);
+			List<LoanApplicationEntity> loans = loanApplicationService.getLoansByCustomerId(customerId);
+			return ResponseEntity.ok(loans);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	

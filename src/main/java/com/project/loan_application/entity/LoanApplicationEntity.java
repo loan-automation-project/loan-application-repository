@@ -12,6 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "loan_application_entity")
@@ -51,21 +54,40 @@ public class LoanApplicationEntity {
     @Column(name = "employment_detail")
     private List<String> employmentDetails;
 
-  
-
-    @ElementCollection
-    @CollectionTable(name = "assets", joinColumns = @JoinColumn(name = "loan_id"))
-    @Column(name = "asset")
-    private List<String> assets;
 
     @ElementCollection
     @CollectionTable(name = "references_list", joinColumns = @JoinColumn(name = "loan_id"))
     @Column(name = "reference")
-    private List<String> references;
+    private List<List<String>> references;
 
     @Column(name = "loan_amount")
-    private Double loanAmount;
+    private Long loanAmount;
+    
+    @Column(name = "customer_id")
+    private Long customerId;
+    
+    @Column(name = "user_id")
+    private Long userId;
 
+    public LoanApplicationEntity() {
+    }
+
+    public LoanApplicationEntity(Long loanId, String loanType, String fullName, LocalDate dateOfBirth, String gender, String maritalStatus, String contactInfo, String address, Long annualSalary, List<String> employmentDetails, List<List<String>> references, Long loanAmount, Long customerId, Long userId) {
+        this.loanId = loanId;
+        this.loanType = loanType;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.maritalStatus = maritalStatus;
+        this.contactInfo = contactInfo;
+        this.address = address;
+        this.annualSalary = annualSalary;
+        this.employmentDetails = employmentDetails;
+        this.references = references;
+        this.loanAmount = loanAmount;
+        this.customerId = customerId;
+        this.userId = userId;
+    }
 
     public Long getLoanId() {
         return loanId;
@@ -83,20 +105,20 @@ public class LoanApplicationEntity {
         this.loanType = loanType;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getGender() {
@@ -123,6 +145,14 @@ public class LoanApplicationEntity {
         this.contactInfo = contactInfo;
     }
 
+    public Long getAnnualSalary() {
+        return annualSalary;
+    }
+
+    public void setAnnualSalary(Long annualSalary) {
+        this.annualSalary = annualSalary;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -139,36 +169,35 @@ public class LoanApplicationEntity {
         this.employmentDetails = employmentDetails;
     }
 
-    public Long getAnnualSalary() {
-        return annualSalary;
-    }
-
-    public void setAnnualSalary(Long annualSalary) {
-        this.annualSalary = annualSalary;
-    }
-
-    public List<String> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(List<String> assets) {
-        this.assets = assets;
-    }
-
-    public List<String> getReferences() {
+    public List<List<String>> getReferences() {
         return references;
     }
 
-    public void setReferences(List<String> references) {
+    public void setReferences(List<List<String>> references) {
         this.references = references;
     }
 
-    public Double getLoanAmount() {
+    public Long getLoanAmount() {
         return loanAmount;
     }
 
-    public void setLoanAmount(Double loanAmount) {
+    public void setLoanAmount(Long loanAmount) {
         this.loanAmount = loanAmount;
     }
 
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }
