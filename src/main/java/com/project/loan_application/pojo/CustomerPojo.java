@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CustomerPojo{
-	private int userId;        
+	private long userId;
+    private long CustomerId;
     private String username;   
-    private String email;      
-    private String password;  
+    private String email;
     private String fullName;   
     private String phoneNumber;
+    private String age;
+    private String gender;
 }

@@ -1,4 +1,4 @@
-package com.project.loan_application.config;
+package com.project.loan_application.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.project.loan_application.pojo.CustomerPojo;
 
-@FeignClient(name = "loanService", url = "https://localhost:1091")
-public interface ApiClient {
+@FeignClient(name = "customer")
+public interface CustomerServiceClient {
 
 	@GetMapping("/customers/{id}")
 	CustomerPojo getCustomerById(@PathVariable Long id);

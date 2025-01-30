@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.project.loan_application.client.CustomerServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class LoanApplicationService {
 	
 	@Autowired
 	LoanApplicationRepository LoanApplicationRepo;
+
+	@Autowired
+	CustomerServiceClient customerServiceClient;
 	
 	public LoanApplicationEntity addLoanApplication(LoanApplicationEntity loanApplication) {
 		return LoanApplicationRepo.saveAndFlush(loanApplication);		
@@ -63,4 +67,5 @@ public class LoanApplicationService {
 		return pojoList;
 	}
 
+	
 }
