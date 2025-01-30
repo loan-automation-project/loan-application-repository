@@ -1,5 +1,6 @@
 package com.project.loan_application.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.loan_application.entity.LoanApplicationEntity;
 import com.project.loan_application.exception.ApplicationNotFoundException;
+import com.project.loan_application.pojo.ApplicationPojo;
 import com.project.loan_application.pojo.CustomerPojo;
 import com.project.loan_application.repository.LoanApplicationRepository;
 
@@ -40,10 +42,25 @@ public class LoanApplicationService {
 		LoanApplicationRepo.deleteById(ApplicationId);
 	}
 	
-	public CustomerPojo getACustomerByApplicationId(Long ApplicationId) {
+	public CustomerPojo getACustomerByLoanId(Long LoanId) {
 		
 		return null;
 	}
 	
+	public List<ApplicationPojo> getLoanApp() {
+		String status = "Pending";
+		List<LoanApplicationEntity> list = LoanApplicationRepo.findByLoanStatus(status);
+		List<ApplicationPojo> pojoList = new ArrayList<>();
+		for(LoanApplicationEntity entity : list) {
+			ApplicationPojo pojo = new ApplicationPojo();
+			pojo.setLoanId(entity.getLoanId());
+			pojo.setFullName(entity.getFullName());
+			pojo.setLoanType(entity.getLoanType());
+			pojo.setContactInfo(entity.getContactInfo());
+			pojoList.add(pojo);
+			
+		}
+		return pojoList;
+	}
 
 }

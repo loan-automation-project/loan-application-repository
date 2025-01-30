@@ -45,6 +45,12 @@ public class LoanApplicationEntity {
     
     @Column(name = "annual_salary")
     private Long annualSalary;
+    
+    @Column(name="loan_status")
+    private String loanStatus;
+    
+    @Column(name="customer_id")
+    private Long customerId;
 
     @ElementCollection
     @CollectionTable(name = "employment_details", joinColumns = @JoinColumn(name = "loan_id"))
@@ -131,7 +137,15 @@ public class LoanApplicationEntity {
         this.address = address;
     }
 
-    public List<String> getEmploymentDetails() {
+    public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+	public List<String> getEmploymentDetails() {
         return employmentDetails;
     }
 
@@ -147,7 +161,15 @@ public class LoanApplicationEntity {
         this.annualSalary = annualSalary;
     }
 
-    public List<String> getAssets() {
+    public String getLoanStatus() {
+		return loanStatus;
+	}
+
+	public void setLoanStatus(String loanStatus) {
+		this.loanStatus = loanStatus;
+	}
+
+	public List<String> getAssets() {
         return assets;
     }
 

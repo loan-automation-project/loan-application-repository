@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.loan_application.entity.LoanApplicationEntity;
+import com.project.loan_application.pojo.ApplicationPojo;
 import com.project.loan_application.service.LoanApplicationService;
 
 @RestController
@@ -40,11 +41,30 @@ public class LoanApplicationController {
 		return new ResponseEntity<LoanApplicationEntity>(loanApplicationService.getALoanApplication(id) , HttpStatus.OK);
 	}
 	
+	@GetMapping("/pending")
+	public ResponseEntity<List<ApplicationPojo>> getAllLoanApplicationPending(){
+		return new ResponseEntity<List<ApplicationPojo>>(loanApplicationService.getLoanApp() , HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteALoanApplication(@PathVariable Long id){
 		loanApplicationService.deleteAApplication(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	@GetMapping("/count")
+	public ResponseEntity<Integer> getAllLoanApplicationCount(){
+		return new ResponseEntity<Integer>(loanApplicationService.getAllLoanApplication().size() , HttpStatus.OK);
+	}
+	
+	@GetMapping("/pending/count")
+	public ResponseEntity<Integer> getAllPendingApplicationCount(){
+		return new ResponseEntity<Integer>(loanApplicationService.getLoanApp().size() , HttpStatus.OK);
+	}
+	
+	
+	
+	
 	
 	
 	
