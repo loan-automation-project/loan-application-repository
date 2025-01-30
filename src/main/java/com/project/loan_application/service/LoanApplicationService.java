@@ -22,9 +22,21 @@ public class LoanApplicationService {
 
 	@Autowired
 	CustomerServiceClient customerServiceClient;
-	
-	public LoanApplicationEntity addLoanApplication(LoanApplicationEntity loanApplication) {
-		return LoanApplicationRepo.saveAndFlush(loanApplication);		
+
+
+
+	public LoanApplicationEntity addLoanApplication(String username,LoanApplicationEntity loanApplication) {
+		CustomerPojo customer = customerServiceClient.getCustomerByUsername(username);
+
+		if (customer == null) {
+			throw new RuntimeException("Customer not found for username: " + username);
+		}
+
+		// Set the fetched customerId to the LoanApplicationEntity
+		loanApplication.setCustomerId(customer.getCustomerId());
+
+		// Save and return the loan application
+		return LoanApplicationRepo.saveAndFlush(loanApplication);
 	}
 	
 	public LoanApplicationEntity getALoanApplication(Long ApplicationId) {

@@ -57,21 +57,33 @@ public class LoanApplicationEntity {
     @Column(name = "employment_detail")
     private List<String> employmentDetails;
 
-  
-
-    @ElementCollection
-    @CollectionTable(name = "assets", joinColumns = @JoinColumn(name = "loan_id"))
-    @Column(name = "asset")
-    private List<String> assets;
-
     @ElementCollection
     @CollectionTable(name = "references_list", joinColumns = @JoinColumn(name = "loan_id"))
     @Column(name = "reference")
-    private List<String> references;
+    private List<List<String>> references;
 
     @Column(name = "loan_amount")
     private Double loanAmount;
 
+    public LoanApplicationEntity() {
+    }
+
+    public LoanApplicationEntity(Long loanId, String loanType, String fullName, LocalDate dateOfBirth, String gender, String contactInfo, String maritalStatus, String address, Long annualSalary, String loanStatus, Long customerId, List<String> employmentDetails, List<List<String>> references, Double loanAmount) {
+        this.loanId = loanId;
+        this.loanType = loanType;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.contactInfo = contactInfo;
+        this.maritalStatus = maritalStatus;
+        this.address = address;
+        this.annualSalary = annualSalary;
+        this.loanStatus = loanStatus;
+        this.customerId = customerId;
+        this.employmentDetails = employmentDetails;
+        this.references = references;
+        this.loanAmount = loanAmount;
+    }
 
     public Long getLoanId() {
         return loanId;
@@ -169,19 +181,11 @@ public class LoanApplicationEntity {
 		this.loanStatus = loanStatus;
 	}
 
-	public List<String> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(List<String> assets) {
-        this.assets = assets;
-    }
-
-    public List<String> getReferences() {
+    public List<List<String>> getReferences() {
         return references;
     }
 
-    public void setReferences(List<String> references) {
+    public void setReferences(List<List<String>> references) {
         this.references = references;
     }
 
