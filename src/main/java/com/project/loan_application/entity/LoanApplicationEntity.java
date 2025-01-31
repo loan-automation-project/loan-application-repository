@@ -3,19 +3,13 @@ package com.project.loan_application.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "loan_application_entity")
 public class LoanApplicationEntity {
+    @Version
+    private Long version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +54,7 @@ public class LoanApplicationEntity {
     @ElementCollection
     @CollectionTable(name = "references_list", joinColumns = @JoinColumn(name = "loan_id"))
     @Column(name = "reference")
-    private List<List<String>> references;
+    private List<String> references;
 
     @Column(name = "loan_amount")
     private Double loanAmount;
@@ -68,21 +62,38 @@ public class LoanApplicationEntity {
     public LoanApplicationEntity() {
     }
 
-    public LoanApplicationEntity(Long loanId, String loanType, String fullName, LocalDate dateOfBirth, String gender, String contactInfo, String maritalStatus, String address, Long annualSalary, String loanStatus, Long customerId, List<String> employmentDetails, List<List<String>> references, Double loanAmount) {
+    public LoanApplicationEntity(Long version, Long loanId, String loanType, String fullName, String gender, LocalDate dateOfBirth, String maritalStatus, String address, String contactInfo, String loanStatus, Long annualSalary, Long customerId, List<String> employmentDetails, List<String> references, Double loanAmount) {
+        this.version = version;
         this.loanId = loanId;
         this.loanType = loanType;
         this.fullName = fullName;
-        this.dateOfBirth = dateOfBirth;
         this.gender = gender;
-        this.contactInfo = contactInfo;
+        this.dateOfBirth = dateOfBirth;
         this.maritalStatus = maritalStatus;
         this.address = address;
-        this.annualSalary = annualSalary;
+        this.contactInfo = contactInfo;
         this.loanStatus = loanStatus;
+        this.annualSalary = annualSalary;
         this.customerId = customerId;
         this.employmentDetails = employmentDetails;
         this.references = references;
         this.loanAmount = loanAmount;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public List<String> getReferences() {
+        return references;
+    }
+
+    public void setReferences(List<String> references) {
+        this.references = references;
     }
 
     public Long getLoanId() {
@@ -181,13 +192,7 @@ public class LoanApplicationEntity {
 		this.loanStatus = loanStatus;
 	}
 
-    public List<List<String>> getReferences() {
-        return references;
-    }
 
-    public void setReferences(List<List<String>> references) {
-        this.references = references;
-    }
 
     public Double getLoanAmount() {
         return loanAmount;

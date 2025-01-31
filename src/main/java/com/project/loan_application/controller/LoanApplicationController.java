@@ -13,7 +13,7 @@ import com.project.loan_application.service.LoanApplicationService;
 
 @RestController
 @RequestMapping("/application")
-@CrossOrigin(origins="http://localhost:5173")
+//@CrossOrigin(origins="http://localhost:5173")
 public class LoanApplicationController {
 
 	@Autowired

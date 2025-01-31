@@ -34,6 +34,7 @@ public class LoanApplicationService {
 
 		// Set the fetched customerId to the LoanApplicationEntity
 		loanApplication.setCustomerId(customer.getCustomerId());
+		loanApplication.setLoanStatus("Pending");
 
 		// Save and return the loan application
 		return LoanApplicationRepo.saveAndFlush(loanApplication);
