@@ -66,6 +66,15 @@ public class LoanApplicationService {
 		}
 		return pojoList;
 	}
+	
+	public Long getLastLoanId() {
+		
+		int length = LoanApplicationRepo.findAll().size();
+		List<LoanApplicationEntity> list = LoanApplicationRepo.findAll();
+		LoanApplicationEntity  trans = list.get(length-1);
+		return trans.getLoanId();
+		
+	}
 
 	
 }

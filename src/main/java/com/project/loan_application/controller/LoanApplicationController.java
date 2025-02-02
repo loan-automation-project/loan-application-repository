@@ -32,6 +32,10 @@ public class LoanApplicationController {
 		return new ResponseEntity<LoanApplicationEntity>(loanApplicationService.addLoanApplication(application) , HttpStatus.OK);
 		
 	}
+	@GetMapping("/id")
+	public ResponseEntity<Long> getLastId(){
+		return new ResponseEntity<Long>( loanApplicationService.getLastLoanId() , HttpStatus.OK);
+	}
 	
 	@GetMapping("")
 	public ResponseEntity<List<LoanApplicationEntity>> getAllLoanApplication(){
