@@ -2,6 +2,7 @@ package com.project.loan_application.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.project.loan_application.client.CustomerServiceClient;
@@ -51,6 +52,12 @@ public class LoanApplicationService {
 		return null;
 	}
 	
+	
+	//ADDED 
+    public List<Map<String, Object>> getPendingApplications() {
+        return LoanApplicationRepo.findPendingApplications();
+    }
+    //
 	public List<ApplicationPojo> getLoanApp() {
 		String status = "Pending";
 		List<LoanApplicationEntity> list = LoanApplicationRepo.findByLoanStatus(status);

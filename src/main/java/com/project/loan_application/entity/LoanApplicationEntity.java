@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -71,7 +72,16 @@ public class LoanApplicationEntity {
 
     @Column(name = "loan_amount")
     private Double loanAmount;
-
+    
+    
+    //ADDED
+    @PrePersist
+    protected void onCreate() {
+        if (this.loanStatus == null) {
+            this.loanStatus = "PENDING";
+        }
+    }
+    //
 
     public Long getLoanId() {
         return loanId;

@@ -1,6 +1,7 @@
 package com.project.loan_application.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,10 +44,18 @@ public class LoanApplicationController {
 		return new ResponseEntity<LoanApplicationEntity>(loanApplicationService.getALoanApplication(id) , HttpStatus.OK);
 	}
 	
-	@GetMapping("/pending")
-	public ResponseEntity<List<ApplicationPojo>> getAllLoanApplicationPending(){
-		return new ResponseEntity<List<ApplicationPojo>>(loanApplicationService.getLoanApp() , HttpStatus.OK);
-	}
+//	@GetMapping("/pending")
+//	public ResponseEntity<List<ApplicationPojo>> getAllLoanApplicationPending(){
+//		return new ResponseEntity<List<ApplicationPojo>>(loanApplicationService.getLoanApp() , HttpStatus.OK);
+//	}
+	
+	//ADDED
+    @GetMapping("/pending")
+    public ResponseEntity<List<Map<String, Object>>> getPendingApplications() {
+        List<Map<String, Object>> pendingApplications = loanApplicationService.getPendingApplications();
+        return ResponseEntity.ok(pendingApplications);
+    }
+    //
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteALoanApplication(@PathVariable Long id){
