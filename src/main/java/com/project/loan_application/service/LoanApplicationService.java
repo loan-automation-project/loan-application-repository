@@ -80,5 +80,8 @@ public class LoanApplicationService {
 		return pojoList;
 	}
 
-	
+	public LoanApplicationEntity getLatestApplication() {
+		return LoanApplicationRepo.findFirstByOrderByLoanIdDesc()
+			.orElseThrow(() -> new RuntimeException("No loan applications found"));
+	}
 }

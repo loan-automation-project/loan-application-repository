@@ -59,6 +59,15 @@ public class LoanApplicationController {
 		return new ResponseEntity<Integer>(loanApplicationService.getLoanApp().size() , HttpStatus.OK);
 	}
 	
+	@GetMapping("/latest")
+	public ResponseEntity<LoanApplicationEntity> getLatestLoanApplication() {
+		LoanApplicationEntity latest = loanApplicationService.getLatestApplication();
+		if (latest != null) {
+			return ResponseEntity.ok(latest);
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
 	
 	
 	
