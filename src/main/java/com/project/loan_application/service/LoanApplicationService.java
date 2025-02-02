@@ -22,9 +22,22 @@ public class LoanApplicationService {
 
 	@Autowired
 	CustomerServiceClient customerServiceClient;
-	
-	public LoanApplicationEntity addLoanApplication(LoanApplicationEntity loanApplication) {
-		return LoanApplicationRepo.saveAndFlush(loanApplication);		
+
+
+
+	public LoanApplicationEntity addLoanApplication(String username,LoanApplicationEntity loanApplication) {
+		CustomerPojo customer = customerServiceClient.getCustomerByUsername(username);
+
+		if (customer == null) {
+			throw new RuntimeException("Customer not found for username: " + username);
+		}
+
+		// Set the fetched customerId to the LoanApplicationEntity
+		loanApplication.setCustomerId(customer.getCustomerId());
+		loanApplication.setLoanStatus("Pending");
+
+		// Save and return the loan application
+		return LoanApplicationRepo.saveAndFlush(loanApplication);
 	}
 	
 	public LoanApplicationEntity getALoanApplication(Long ApplicationId) {
@@ -67,5 +80,8 @@ public class LoanApplicationService {
 		return pojoList;
 	}
 
-	
+	public LoanApplicationEntity getLatestApplication() {
+		return LoanApplicationRepo.findFirstByOrderByLoanIdDesc()
+			.orElseThrow(() -> new RuntimeException("No loan applications found"));
+	}
 }
