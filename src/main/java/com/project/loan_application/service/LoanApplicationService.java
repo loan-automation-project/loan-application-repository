@@ -2,8 +2,10 @@ package com.project.loan_application.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.project.loan_application.client.CustomerServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,5 +85,9 @@ public class LoanApplicationService {
 	public LoanApplicationEntity getLatestApplication() {
 		return LoanApplicationRepo.findFirstByOrderByLoanIdDesc()
 			.orElseThrow(() -> new RuntimeException("No loan applications found"));
+	}
+
+	public List<Map<String, Object>> getPendingApplications(){
+		return LoanApplicationRepo.findPendingApplications();
 	}
 }

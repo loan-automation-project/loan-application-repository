@@ -59,6 +59,13 @@ public class LoanApplicationEntity {
     @Column(name = "loan_amount")
     private Double loanAmount;
 
+
+    @PrePersist
+    protected  void onCreate(){
+        if(this.loanStatus==null){
+            this.loanStatus="Pending";
+        }
+    }
     public LoanApplicationEntity() {
     }
 
